@@ -2,12 +2,6 @@ import React from "react";
 import "./header.css";
 
 class Header extends React.Component {
-  state = {
-    data: []
-  };
-
-  // admins = require("./data/threatData.json");
-
   render() {
     return (
       <nav className="navbar navbar-light purple justify-content-between">
