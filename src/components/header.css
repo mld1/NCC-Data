@@ -1,0 +1,32 @@
+.purple {
+  background-color: purple;
+}
+
+.search {
+  background-color: white;
+  color: purple;
+  outline: 0px !important;
+  -webkit-appearance: none;
+  box-shadow: none !important;
+}
+.search:hover {
+  background-color: white;
+  color: white;
+  outline: 0px !important;
+  -webkit-appearance: none;
+  box-shadow: none !important;
+}
+.search:focus {
+  border-color: white;
+  outline: 0px !important;
+  -webkit-appearance: none;
+  box-shadow: none !important;
+}
+.searchButton:hover {
+  background-color: purple;
+  color: white;
+}
+
+.whiteText {
+  color: white;
+}
