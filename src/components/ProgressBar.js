@@ -29,7 +29,6 @@ class ProgressBar extends React.Component {
   render() {
     return (
       <div className="App">
-        <h4>Severity Counts From Last Scan:</h4>
         <div className="progress">
           <div
             className="progress-bar critical"

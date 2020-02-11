@@ -73,15 +73,25 @@ class DataInfo extends React.Component {
     }
   };
 
+  getCount(asset) {
+    let count = 0;
+    this.props.data.scan.vulnerabilities.forEach(vul => {
+      if (vul.affectedAssets.includes(asset.id) === true) {
+        count++;
+      }
+    });
+
+    return count;
+  }
   render() {
     return (
       <div className="margin">
         <br></br>
         {/* Collapse for Scan Results */}
-        <div class="panel-group">
-          <div class="panel panel-default">
-            <div class="panel-heading">
-              <h4 class="panel-title">
+        <div className="panel-group">
+          <div className="panel panel-default">
+            <div className="panel-heading">
+              <h4 className="panel-title">
                 <a
                   data-toggle="collapse"
                   href="#collapse1"
@@ -98,19 +108,18 @@ class DataInfo extends React.Component {
             </div>
             <div
               id="collapse1"
-              class="panel-collapse collapse"
+              className="panel-collapse collapse"
               style={{
                 display: this.state.showCollapseScan ? "inline" : "none"
               }}
             >
-              <ProgressBar data={this.props.data} />
               <div className="panel-body">
                 <div className="card">
                   <ul className="list-group list-group-flush">
                     {/* Collapse Scanners */}
-                    <div class="panel panel-default">
-                      <div class="panel-heading">
-                        <h6 class="panel-title">
+                    <div className="panel panel-default">
+                      <div className="panel-heading">
+                        <h6 className="panel-title">
                           <a
                             data-toggle="collapse"
                             href="#collapseScanners"
@@ -122,14 +131,14 @@ class DataInfo extends React.Component {
                       </div>
                       <div
                         id="collapseScanners"
-                        class="panel-collapse collapse"
+                        className="panel-collapse collapse"
                         style={{
                           display: this.state.showCollapseScanners
                             ? "inline"
                             : "none"
                         }}
                       >
-                        <div class="panel-body">
+                        <div className="panel-body">
                           <li className="list-group-item">
                             {this.props.data.scan.scanners.map(scanner => {
                               return (
@@ -142,11 +151,10 @@ class DataInfo extends React.Component {
                         </div>
                       </div>
                     </div>
-
                     {/* severity list */}
-                    <div class="panel panel-default">
-                      <div class="panel-heading">
-                        <h6 class="panel-title">
+                    <div className="panel panel-default">
+                      <div className="panel-heading">
+                        <h6 className="panel-title">
                           <a
                             data-toggle="collapse"
                             href="#collapseAssestsID9"
@@ -160,100 +168,139 @@ class DataInfo extends React.Component {
                       </div>
                       <div
                         id="collapseAssetsID9"
-                        class="panel-collapse collapse"
+                        className="panel-collapse collapse"
                         style={{
                           display: this.state.showCollapseAssetsSeverityLists
                             ? "inline"
                             : "none"
                         }}
                       >
-                        <div class="panel-body">
+                        <div className="panel-body">
                           <li className="list-group-item">
-                            <ul>
-                              <li>
-                                {" "}
-                                critical:{" "}
-                                {this.props.data.scan.severityCounts.critical}
-                              </li>
-                              <br></br>
-                              <li>
-                                {" "}
-                                high: {this.props.data.scan.severityCounts.high}
-                              </li>
-                              <br></br>
-                              <li>
-                                {" "}
-                                medium:{" "}
-                                {this.props.data.scan.severityCounts.medium}
-                              </li>
-                              <br></br>
-                              <li>
-                                low: {this.props.data.scan.severityCounts.low}
-                              </li>
-                              <br></br>
-                              <li>
-                                information:{" "}
-                                {
-                                  this.props.data.scan.severityCounts
-                                    .information
-                                }
-                              </li>
-                            </ul>
+                            <ProgressBar data={this.props.data} />
+                          </li>
+                          <li>
+                            <div className="panel-group">
+                              <div className="panel panel-default">
+                                <div className="panel-heading">
+                                  <h6 className="panel-title">
+                                    <a
+                                      data-toggle="collapse"
+                                      href="#collapseAssets"
+                                      onClick={this.handleClickCollapseAssets}
+                                    >
+                                      Vulnerabilities
+                                    </a>
+                                  </h6>
+                                </div>
+
+                                <div
+                                  id="collapseAssets"
+                                  className="panel-collapse collapse"
+                                  style={{
+                                    display: this.state.showCollapseAssets
+                                      ? "inline"
+                                      : "none"
+                                  }}
+                                >
+                                  <div className="panel-body">
+                                    <div className="panel-body">
+                                      {this.props.data.scan.vulnerabilities.map(
+                                        vul => {
+                                          return (
+                                            <ul>
+                                              <li>Id: {vul.id}</li>
+                                              <li>Name: {vul.name}</li>
+                                              <li>Severity: {vul.severity}</li>
+                                              <li>
+                                                Description: {vul.description}
+                                              </li>
+                                              <li>Solution: {vul.solution}</li>
+                                              <li>
+                                                References: {vul.referneces}
+                                              </li>
+                                              <li>
+                                                CVSS Base Score:{" "}
+                                                {vul.cvssBaseScore}
+                                              </li>
+                                              <li>
+                                                Affected Assests:{" "}
+                                                {vul.affectedAssets}
+                                              </li>
+                                              <br></br>
+                                              <br></br>
+                                            </ul>
+                                          );
+                                        }
+                                      )}
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
                           </li>
                         </div>
                       </div>
-                    </div>
-                  </ul>
-                </div>{" "}
-                {/* Assests Collapse */}
-                <div class="panel-group">
-                  <div class="panel panel-default">
-                    <div class="panel-heading">
-                      <h4 class="panel-title">
-                        <a
-                          data-toggle="collapse"
-                          href="#collapseAssets"
-                          onClick={this.handleClickCollapseAssets}
-                        >
-                          Assets
-                        </a>
-                      </h4>
-                    </div>
+                    </div>{" "}
+                    {/* Assests Collapse */}
+                    <li>
+                      <div className="panel-group">
+                        <div className="panel panel-default">
+                          <div className="panel-heading">
+                            <h6 className="panel-title">
+                              <a
+                                data-toggle="collapse"
+                                href="#collapseAssets"
+                                onClick={this.handleClickCollapseAssets}
+                              >
+                                Assets
+                              </a>
+                            </h6>
+                          </div>
 
-                    <div
-                      id="collapseAssets"
-                      class="panel-collapse collapse"
-                      style={{
-                        display: this.state.showCollapseAssets
-                          ? "inline"
-                          : "none"
-                      }}
-                    >
-                      <div class="panel-body">
-                        <div class="panel-body">
-                          {this.props.data.scan.assets.map(asset => {
-                            return (
-                              <ul>
-                                <li>Id: {asset.id}</li>
-                                <li>Name: {asset.name}</li>
-                                <li>Description: {asset.description}</li>
-                                <li>
-                                  Created:{" "}
-                                  {moment(asset.created).format("Do MM YYYY")}
-                                </li>
-                                <li>Scan Count: {asset.scanCount}</li>
-                              </ul>
-                            );
-                          })}
+                          <div
+                            id="collapseAssets"
+                            className="panel-collapse collapse"
+                            style={{
+                              display: this.state.showCollapseAssets
+                                ? "inline"
+                                : "none"
+                            }}
+                          >
+                            <div className="panel-body">
+                              <div className="panel-body">
+                                {this.props.data.scan.assets.map(asset => {
+                                  return (
+                                    <ul>
+                                      <li>Id: {asset.id}</li>
+                                      <li>Name: {asset.name}</li>
+                                      <li>Description: {asset.description}</li>
+                                      <li>
+                                        Created:{" "}
+                                        {moment(asset.created).format(
+                                          "Do MM YYYY"
+                                        )}
+                                      </li>
+                                      <li>Scan Count: {asset.scanCount}</li>
+                                      <li>
+                                        Vulnerabilities: {this.getCount(asset)}
+                                      </li>
+                                      <br></br>
+                                    </ul>
+                                  );
+                                })}
+                              </div>
+                            </div>
+
+                            {/* End Assets ID Collapse */}
+                            <div className="panel-group"></div>
+                          </div>
                         </div>
                       </div>
-
-                      {/* End Assets ID Collapse */}
-                      <div class="panel-group"></div>
-                    </div>
-                  </div>
+                    </li>
+                    <br></br>
+                  </ul>
                 </div>
-                <br></br>
               </div>
             </div>
           </div>
