@@ -1,5 +1,6 @@
 import React from "react";
 import moment from "moment";
+import ProgressBar from "./ProgressBar";
 
 class DataInfo extends React.Component {
   state = {
@@ -75,8 +76,6 @@ class DataInfo extends React.Component {
   render() {
     return (
       <div className="margin">
-        <h3>{this.props.data.user.displayName}</h3>
-
         <br></br>
         {/* Collapse for Scan Results */}
         <div class="panel-group">
@@ -104,6 +103,7 @@ class DataInfo extends React.Component {
                 display: this.state.showCollapseScan ? "inline" : "none"
               }}
             >
+              <ProgressBar data={this.props.data} />
               <div className="panel-body">
                 <div className="card">
                   <ul className="list-group list-group-flush">

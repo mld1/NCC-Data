@@ -13,6 +13,7 @@ class App extends React.Component {
     return (
       <div className="App">
         <Header />
+        <h3>{this.state.data.user.displayName}</h3>
         <DataInfo data={this.state.data} />
       </div>
     );

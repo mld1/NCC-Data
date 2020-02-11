@@ -1,0 +1,19 @@
+.critical {
+  background-color: crimson;
+}
+
+.high {
+  background-color: rgb(216, 105, 53);
+}
+
+.medium {
+  background-color: rgb(226, 193, 83);
+}
+
+.low {
+  background-color: rgb(88, 194, 18);
+}
+
+.information {
+  background-color: blue;
+}
