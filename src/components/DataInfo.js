@@ -8,7 +8,9 @@ class DataInfo extends React.Component {
     showCollapseAssets: false,
     showCollapseAssetsID9: false,
     showCollapseAssetsSeverityLists: false,
-    showCollapseAssetsSanners: false
+    showCollapseAssetsSanners: false,
+    showCollapseVulnerabilities: false,
+    search: ""
   };
 
   // Collapse BUTTON Scan
@@ -73,6 +75,19 @@ class DataInfo extends React.Component {
     }
   };
 
+  handleClickCollapseVulnerabilities = () => {
+    if (this.state.showCollapseVulnerabilities === false) {
+      this.setState({
+        showCollapseVulnerabilities: true
+      });
+    } else {
+      this.setState({
+        showCollapseVulnerabilities: false
+      });
+    }
+    console.log("hii");
+  };
+
   getCount(asset) {
     let count = 0;
     this.props.data.scan.vulnerabilities.forEach(vul => {
@@ -83,10 +98,44 @@ class DataInfo extends React.Component {
 
     return count;
   }
+
+  search = severity => {
+    this.setState({
+      search: severity
+    });
+  };
+
+  // searchVulnerabilities = vuls => {
+  //   if (this.state.search === "") {
+  //     return vuls;
+  //   } else {
+  //     let filteredVuls = vuls.filter(vul => {
+  //       return birthday.name.toLowerCase().indexOf(this.state.search) !== -1;
+  //     });
+
+  //     console.log(filteredBirthdays);
+  //     return filteredBirthdays;
+  //   }
+  // };
+
+  // searchBirthdays = birthdays => {
+  //   if (this.state.search === "") {
+  //     return birthdays;
+  //   } else {
+  //     let filteredBirthdays = birthdays.filter(birthday => {
+  //       return birthday.name.toLowerCase().indexOf(this.state.search) !== -1;
+  //     });
+
+  //     console.log(filteredBirthdays);
+  //     return filteredBirthdays;
+  //   }
+  // };
+
   render() {
     return (
       <div className="margin">
         <br></br>
+
         {/* Collapse for Scan Results */}
         <div className="panel-group">
           <div className="panel panel-default">
@@ -177,7 +226,10 @@ class DataInfo extends React.Component {
                       >
                         <div className="panel-body">
                           <li className="list-group-item">
-                            <ProgressBar data={this.props.data} />
+                            <ProgressBar
+                              data={this.props.data}
+                              startSearchFunc={this.search}
+                            />
                           </li>
                           <li>
                             <div className="panel-group">
@@ -187,7 +239,9 @@ class DataInfo extends React.Component {
                                     <a
                                       data-toggle="collapse"
                                       href="#collapseAssets"
-                                      onClick={this.handleClickCollapseAssets}
+                                      onClick={
+                                        this.handleClickCollapseVulnerabilities
+                                      }
                                     >
                                       Vulnerabilities
                                     </a>
@@ -198,7 +252,8 @@ class DataInfo extends React.Component {
                                   id="collapseAssets"
                                   className="panel-collapse collapse"
                                   style={{
-                                    display: this.state.showCollapseAssets
+                                    display: this.state
+                                      .showCollapseVulnerabilities
                                       ? "inline"
                                       : "none"
                                   }}
@@ -207,30 +262,67 @@ class DataInfo extends React.Component {
                                     <div className="panel-body">
                                       {this.props.data.scan.vulnerabilities.map(
                                         vul => {
-                                          return (
-                                            <ul>
-                                              <li>Id: {vul.id}</li>
-                                              <li>Name: {vul.name}</li>
-                                              <li>Severity: {vul.severity}</li>
-                                              <li>
-                                                Description: {vul.description}
-                                              </li>
-                                              <li>Solution: {vul.solution}</li>
-                                              <li>
-                                                References: {vul.referneces}
-                                              </li>
-                                              <li>
-                                                CVSS Base Score:{" "}
-                                                {vul.cvssBaseScore}
-                                              </li>
-                                              <li>
-                                                Affected Assests:{" "}
-                                                {vul.affectedAssets}
-                                              </li>
-                                              <br></br>
-                                              <br></br>
-                                            </ul>
-                                          );
+                                          if (this.state.search === "") {
+                                            return (
+                                              <ul>
+                                                <li>Id: {vul.id}</li>
+                                                <li>Name: {vul.name}</li>
+                                                <li>
+                                                  Severity: {vul.severity}
+                                                </li>
+                                                <li>
+                                                  Description: {vul.description}
+                                                </li>
+                                                <li>
+                                                  Solution: {vul.solution}
+                                                </li>
+                                                <li>
+                                                  References: {vul.referneces}
+                                                </li>
+                                                <li>
+                                                  CVSS Base Score:{" "}
+                                                  {vul.cvssBaseScore}
+                                                </li>
+                                                <li>
+                                                  Affected Assests:{" "}
+                                                  {vul.affectedAssets}
+                                                </li>
+                                                <br></br>
+                                                <br></br>
+                                              </ul>
+                                            );
+                                          } else if (
+                                            this.state.search === vul.severity
+                                          ) {
+                                            return (
+                                              <ul>
+                                                <li>Id: {vul.id}</li>
+                                                <li>Name: {vul.name}</li>
+                                                <li>
+                                                  Severity: {vul.severity}
+                                                </li>
+                                                <li>
+                                                  Description: {vul.description}
+                                                </li>
+                                                <li>
+                                                  Solution: {vul.solution}
+                                                </li>
+                                                <li>
+                                                  References: {vul.referneces}
+                                                </li>
+                                                <li>
+                                                  CVSS Base Score:{" "}
+                                                  {vul.cvssBaseScore}
+                                                </li>
+                                                <li>
+                                                  Affected Assests:{" "}
+                                                  {vul.affectedAssets}
+                                                </li>
+                                                <br></br>
+                                                <br></br>
+                                              </ul>
+                                            );
+                                          }
                                         }
                                       )}
                                     </div>

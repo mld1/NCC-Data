@@ -26,6 +26,22 @@ class ProgressBar extends React.Component {
     });
   };
 
+  updateSearchCritical = () => {
+    this.props.startSearchFunc("critical");
+  };
+  updateSearchHigh = () => {
+    this.props.startSearchFunc("high");
+  };
+  updateSearchMedium = () => {
+    this.props.startSearchFunc("medium");
+  };
+  updateSearchLow = () => {
+    this.props.startSearchFunc("low");
+  };
+  updateSearchInformation = () => {
+    this.props.startSearchFunc("information");
+  };
+
   render() {
     return (
       <div className="App">
@@ -37,6 +53,7 @@ class ProgressBar extends React.Component {
             aria-valuenow="15"
             aria-valuemin="0"
             aria-valuemax="100"
+            onClick={this.updateSearchCritical}
           >
             Critical: {this.props.data.scan.severityCounts.critical}
           </div>
@@ -47,6 +64,7 @@ class ProgressBar extends React.Component {
             aria-valuenow="30"
             aria-valuemin="0"
             aria-valuemax="100"
+            onClick={this.updateSearchHigh}
           >
             High: {this.props.data.scan.severityCounts.high}
           </div>
@@ -57,6 +75,7 @@ class ProgressBar extends React.Component {
             aria-valuenow="20"
             aria-valuemin="0"
             aria-valuemax="100"
+            onClick={this.updateSearchMedium}
           >
             Medium: {this.props.data.scan.severityCounts.medium}
           </div>
@@ -67,6 +86,7 @@ class ProgressBar extends React.Component {
             aria-valuenow="20"
             aria-valuemin="0"
             aria-valuemax="100"
+            onClick={this.updateSearchLow}
           >
             Low: {this.props.data.scan.severityCounts.low}
           </div>
@@ -77,7 +97,7 @@ class ProgressBar extends React.Component {
             aria-valuenow="20"
             aria-valuemin="0"
             aria-valuemax="100"
-            // onClick=
+            onClick={this.updateSearchInformation}
           >
             Information: {this.props.data.scan.severityCounts.information}
           </div>
